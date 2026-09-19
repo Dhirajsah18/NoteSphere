@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#FAF9F6] text-stone-900 font-sans;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Custom smooth modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(244, 242, 235, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 162, 158, 0.5);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 88, 12, 0.7);
+}
+
+/* Glass & Card panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(231, 229, 223, 0.9);
+}
+
+.glass-card {
+  background: #ffffff;
+  border: 1px solid #e7e5df;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: #fdba74;
+  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.08), 0 8px 10px -6px rgba(234, 88, 12, 0.04);
+  transform: translateY(-2px);
+}
+
+.glass-input {
+  background: #ffffff;
+  border: 1px solid #d6d3cb;
+  color: #1c1917;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  background: #ffffff;
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+
+/* Rich text rendered content styles */
+.rich-text-content {
+  line-height: 1.65;
+  color: #44403c;
+}
+
+.rich-text-content h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1c1917;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-text-content h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #292524;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.rich-text-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #44403c;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.rich-text-content p {
+  margin-bottom: 0.5rem;
+}
+
+.rich-text-content ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-text-content ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-text-content li {
+  margin-bottom: 0.25rem;
+}
+
+.rich-text-content blockquote {
+  border-left: 3px solid #ea580c;
+  padding-left: 0.85rem;
+  font-style: italic;
+  color: #57534e;
+  margin: 0.5rem 0;
+  background: #fdf6ed;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+.rich-text-content pre, .rich-text-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background: #f5f4ef;
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875em;
+  color: #c2410c;
+  font-weight: 600;
+}
+
+.rich-text-content pre {
+  padding: 0.75rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  border: 1px solid #e7e5df;
+}
+
+.rich-text-content b, .rich-text-content strong {
+  font-weight: 700;
+  color: #1c1917;
+}
+
+.rich-text-content a {
+  color: #ea580c;
+  text-decoration: underline;
+}
+
+/* Font size levels */
+.rich-text-content font[size="1"] { font-size: 12px; }
+.rich-text-content font[size="2"] { font-size: 14px; }
+.rich-text-content font[size="3"] { font-size: 16px; }
+.rich-text-content font[size="4"] { font-size: 19px; }
+.rich-text-content font[size="5"] { font-size: 24px; }
+.rich-text-content font[size="6"] { font-size: 30px; }
+.rich-text-content font[size="7"] { font-size: 36px; }
+
+/* Category colors (Warm Terracotta / Sage / Amber / Charcoal) */
+.badge-Personal {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.badge-Work {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-Study {
+  background: #fefce8;
+  color: #a16207;
+  border: 1px solid #fef08a;
+}
+
+.badge-Other {
+  background: #f5f5f4;
+  color: #44403c;
+  border: 1px solid #d6d3d1;
+}

@@ -1,0 +1,371 @@
+{
+  "info": {
+    "_postman_id": "9b1d3ef2-4871-4a4f-9e12-32b00512f45c",
+    "name": "Notes Management System API",
+    "description": "Comprehensive Postman collection for Notes Management System with JWT Auth, CRUD operations, Search, Category filters and Pinning.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "1. Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alex Johnson\",\n  \"email\": \"alex@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set('token', jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alex@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "me"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "item": [
+        {
+          "name": "1. Create Note (Personal)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Weekend Grocery & Meal Prep List\",\n  \"content\": \"<p>Pick up fresh groceries:</p><ul><li>Avocados</li><li>Sourdough bread</li><li>Greek yogurt</li><li>Almond milk</li></ul>\",\n  \"category\": \"Personal\",\n  \"isPinned\": true,\n  \"color\": \"purple\",\n  \"tags\": [\"groceries\", \"lifestyle\", \"weekend\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Create Note (Work)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Q4 Sprint Planning & Architectural Review\",\n  \"content\": \"<h2>Sprint Objectives</h2><p>1. Finish authentication module</p><p>2. Complete rich text note editor</p><p>3. Add full text search and categories filter</p>\",\n  \"category\": \"Work\",\n  \"isPinned\": true,\n  \"color\": \"blue\",\n  \"tags\": [\"sprint\", \"planning\", \"engineering\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Get All Notes (with Filters)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes?category=All&search=&sortBy=updated",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "All"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "sortBy",
+                  "value": "updated"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. Search Notes by Keyword",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes?search=sprint",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "sprint"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. Filter Notes by Category (Study)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes?category=Study",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Study"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. Get Single Note by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "NOTE_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7. Update Note",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Sprint Planning Notes\",\n  \"content\": \"<p>Updated content with team decisions.</p>\",\n  \"category\": \"Work\",\n  \"isPinned\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "NOTE_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "8. Toggle Pin Note",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/:id/pin",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ":id", "pin"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "NOTE_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "9. Delete Note",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/notes/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "notes", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "NOTE_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
